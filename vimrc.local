@@ -99,3 +99,6 @@ set nu "Включаем нумерацию строк
 set mousehide "Спрятать курсор мыши когда набираем текст
 
 set hlsearch
+
+"write with sudo
+cmap w!! w !sudo tee > /dev/null %
