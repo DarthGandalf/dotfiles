@@ -1,37 +1,36 @@
-" All system-wide defaults are set in $VIMRUNTIME/debian.vim (usually just
-" /usr/share/vim/vimcurrent/debian.vim) and sourced by the call to :runtime
-" you can find below.  If you wish to change any of those settings, you should
-" do it in this file (/etc/vim/vimrc), since debian.vim will be overwritten
-" everytime an upgrade of the vim packages is performed.  It is recommended to
-" make changes after sourcing debian.vim since it alters the value of the
-" 'compatible' option.
-
-" This line should not be removed as it ensures that various options are
-" properly set to work with the Vim-related packages available in Debian.
-runtime! debian.vim
-
-" Uncomment the next line to make Vim more Vi-compatible
-" NOTE: debian.vim sets 'nocompatible'.  Setting 'compatible' changes numerous
-" options, so any other options should be set AFTER setting 'compatible'.
 set nocompatible
 
-" Vim5 and later versions support syntax highlighting. Uncommenting the next
-" line enables syntax highlighting by default.
-if has("syntax")
-	syntax on
+filetype off
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Bundle 'gmarik/Vundle.vim'
+
+if filereadable(expand('~/.vimrc_at_google'))
+	source ~/.vimrc_at_google
+else
+	set ts=4
+	set sw=4
+	set softtabstop=4 "4 пробела в табе
+	autocmd filetype py set expandtab "Ставим табы пробелами
+	autocmd filetype cpp,c,h,hpp set syntax=cpp.doxygen
 endif
+
+Bundle 'scrooloose/syntastic'
+call vundle#end()
+
+filetype plugin indent on
 
 " If using a dark background within the editing area and syntax highlighting
 " turn on this option as well
 "set background=light
-set background=dark
+"set background=dark
 
 " Uncomment the following to have Vim jump to the last position when
 " reopening a file
-"if has("autocmd")
-"  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
-"    \| exe "normal g'\"" | endif
-"endif
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
+    \| exe "normal g'\"" | endif
+endif
 
 " Uncomment the following to have Vim load indentation rules according to the
 " detected filetype. Per default Debian Vim only load filetype specific
@@ -49,6 +48,7 @@ set smartcase		" Do smart case matching
 set incsearch		" Incremental search
 "set autowrite		" Automatically save before commands like :next and :make
 "set hidden             " Hide buffers when they are abandoned
+set ttymouse=xterm2
 set mouse=a		" Enable mouse usage (all modes) in terminals
 
 " Source a global configuration file if available
@@ -56,35 +56,33 @@ set mouse=a		" Enable mouse usage (all modes) in terminals
 "if filereadable("/etc/vim/vimrc.local")
 "  source /etc/vim/vimrc.local
 "endif
-"set cindent
+set cindent
 "set noexpandtab
-set ts=4
-set sw=4
+"set ts=4
+"set sw=4
 "if has("filetype")
-	filetype on
-	filetype plugin indent on
-	autocmd filetype cpp,c,h,hpp set syntax=cpp.doxygen
+"	filetype on
+"	filetype plugin indent on
+"	autocmd filetype cpp,c,h,hpp set syntax=cpp.doxygen
 "endif
 "runtime! ftplugin/man.vim
 set visualbell
 
 "Настройки табов для Python, согласно рекоммендациям
 set smarttab
-autocmd filetype py set expandtab "Ставим табы пробелами
-set softtabstop=4 "4 пробела в табе
 "Автоотступ
 "autocmd filetype py set autoindent
 "Подсвечиваем все что можно подсвечивать
 let python_highlight_all = 1
 "Включаем 256 цветов в терминале, мы ведь работаем из иксов?
 "Нужно во многих терминалах, например в gnome-terminal
-set t_Co=256
+"set t_Co=256
 
 "Настройка omnicomletion для Python (а так же для js, html и css)
-autocmd FileType python set omnifunc=pythoncomplete#Complete
-autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+"autocmd FileType python set omnifunc=pythoncomplete#Complete
+"autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+"autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+"autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 
 set wrap
 set linebreak
@@ -92,6 +90,7 @@ set linebreak
 set encoding=utf-8 " Кодировка файлов по умолчанию
 set fileencodings=utf8,cp1251 " Возможные кодировки файлов, если файл не в unicode кодировке,
 												    " то будет использоваться cp1251
+set colorcolumn=81
 set foldcolumn=1
 set backspace=indent,eol,start whichwrap+=<,>,[,]
 set termencoding=utf-8 "Кодировка терминала
@@ -103,10 +102,19 @@ set hlsearch
 "write with sudo
 cmap w!! w !sudo tee > /dev/null %
 
-"to install clang_comlete:
-" git clone https://github.com/Rip-Rip/clang_complete.git; cd clang_complete; make install
-let g:clang_library_path="/usr/lib/llvm/"
-let g:clang_complete_macros=1
-let g:clang_complete_copen=1
-"let g:clang_periodic_quickfix=1
-let g:clang_close_preview=1
+syntax on
+
+colorscheme elflord
+
+if &term =~ '^screen'
+    " tmux will send xterm-style keys when its xterm-keys option is on
+    execute "set <xUp>=\e[1;*A"
+    execute "set <xDown>=\e[1;*B"
+    execute "set <xRight>=\e[1;*C"
+    execute "set <xLeft>=\e[1;*D"
+endif
+
+hi Pmenu      ctermbg=142
+hi PmenuSel   ctermbg=118 ctermfg=0
+hi PmenuSbar  ctermbg=248
+hi PmenuThumb ctermbg=160
