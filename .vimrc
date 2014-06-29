@@ -8,6 +8,7 @@ Bundle 'gmarik/Vundle.vim'
 if filereadable(expand('~/.vimrc_at_google'))
 	source ~/.vimrc_at_google
 else
+	Bundle 'Valloric/YouCompleteMe'
 	set ts=4
 	set sw=4
 	set softtabstop=4 "4 пробела в табе
@@ -16,6 +17,7 @@ else
 endif
 
 Bundle 'scrooloose/syntastic'
+Bundle 'vim-jp/cpp-vim'
 call vundle#end()
 
 filetype plugin indent on
@@ -114,7 +116,10 @@ if &term =~ '^screen'
     execute "set <xLeft>=\e[1;*D"
 endif
 
+"Make code completion menu readable
 hi Pmenu      ctermbg=142
 hi PmenuSel   ctermbg=118 ctermfg=0
 hi PmenuSbar  ctermbg=248
 hi PmenuThumb ctermbg=160
+
+let g:ycm_always_populate_location_list = 1
