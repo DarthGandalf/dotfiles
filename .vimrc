@@ -123,3 +123,4 @@ hi PmenuSbar  ctermbg=248
 hi PmenuThumb ctermbg=160
 
 let g:ycm_always_populate_location_list = 1
+let g:ycm_extra_conf_globlist = ['~/.ycm_extra_conf.py']
