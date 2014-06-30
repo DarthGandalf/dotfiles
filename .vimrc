@@ -98,6 +98,7 @@ set backspace=indent,eol,start whichwrap+=<,>,[,]
 set termencoding=utf-8 "Кодировка терминала
 set nu "Включаем нумерацию строк
 set mousehide "Спрятать курсор мыши когда набираем текст
+set completeopt-=preview
 
 set hlsearch
 
