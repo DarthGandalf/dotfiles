@@ -117,6 +117,8 @@ if &term =~ '^screen'
     execute "set <xLeft>=\e[1;*D"
 endif
 
+hi Search     ctermbg=141
+hi Todo       ctermbg=214
 "Make code completion menu readable
 hi Pmenu      ctermbg=142
 hi PmenuSel   ctermbg=118 ctermfg=0
