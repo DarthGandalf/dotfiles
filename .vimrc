@@ -18,6 +18,7 @@ endif
 
 Bundle 'scrooloose/syntastic'
 Bundle 'vim-jp/cpp-vim'
+Bundle 'ConradIrwin/vim-bracketed-paste'
 call vundle#end()
 
 filetype plugin indent on
@@ -50,7 +51,7 @@ set smartcase		" Do smart case matching
 set incsearch		" Incremental search
 "set autowrite		" Automatically save before commands like :next and :make
 "set hidden             " Hide buffers when they are abandoned
-set ttymouse=xterm2
+set ttymouse=sgr
 set mouse=a		" Enable mouse usage (all modes) in terminals
 
 " Source a global configuration file if available
@@ -130,3 +131,4 @@ let g:ycm_extra_conf_globlist = ['~/.ycm_extra_conf.py']
 
 "Select the item by Enter in completion menu, but don't insert newline
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
