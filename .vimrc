@@ -19,6 +19,12 @@ endif
 Bundle 'scrooloose/syntastic'
 Bundle 'vim-jp/cpp-vim'
 Bundle 'ConradIrwin/vim-bracketed-paste'
+
+if &diff
+else
+  Bundle 'bogado/file-line'
+endif
+
 call vundle#end()
 
 filetype plugin indent on
@@ -120,6 +126,10 @@ endif
 
 hi Search     ctermbg=141
 hi Todo       ctermbg=214
+hi DiffText   ctermbg=5
+hi DiffChange ctermbg=235
+hi DiffAdd    ctermbg=17
+hi DiffDelete ctermbg=0   ctermfg=88
 "Make code completion menu readable
 hi Pmenu      ctermbg=142
 hi PmenuSel   ctermbg=118 ctermfg=0
@@ -131,4 +141,5 @@ let g:ycm_extra_conf_globlist = ['~/.ycm_extra_conf.py']
 
 "Select the item by Enter in completion menu, but don't insert newline
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
 
