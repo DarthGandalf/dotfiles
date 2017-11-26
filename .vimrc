@@ -9,16 +9,26 @@ if filereadable(expand('~/.vimrc_at_google'))
 	source ~/.vimrc_at_google
 else
 	Bundle 'Valloric/YouCompleteMe'
+	Bundle 'davidhalter/jedi-vim'
 	set ts=4
 	set sw=4
 	set softtabstop=4 "4 пробела в табе
 	autocmd filetype py set expandtab "Ставим табы пробелами
 	autocmd filetype cpp,c,h,hpp set syntax=cpp.doxygen
+
+	" YCM and jedi-vim both complete python; but YCM doesn't support python3.
+	" Also, they conflict. Disable YCM.
+	let g:ycm_filetype_specific_completion_to_disable = { 'python' : 1 }
+	let g:ycm_filetype_blacklist = { 'python' : 1 }
+	let g:jedi#force_py_version = 3
 endif
 
 Bundle 'scrooloose/syntastic'
 Bundle 'vim-jp/cpp-vim'
 Bundle 'ConradIrwin/vim-bracketed-paste'
+Bundle 'vim-scripts/SWIG-syntax'
+Bundle 'stephpy/vim-yaml'
+Bundle 'scrooloose/nerdcommenter'
 
 if &diff
 else
@@ -105,7 +115,11 @@ set backspace=indent,eol,start whichwrap+=<,>,[,]
 set termencoding=utf-8 "Кодировка терминала
 set nu "Включаем нумерацию строк
 set mousehide "Спрятать курсор мыши когда набираем текст
+set scrolloff=5
 set completeopt-=preview
+
+set list
+set listchars=tab:▸\ 
 
 set hlsearch
 
@@ -142,4 +156,6 @@ let g:ycm_extra_conf_globlist = ['~/.ycm_extra_conf.py']
 "Select the item by Enter in completion menu, but don't insert newline
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
+map <C-K> :pyf ~/clang-format.py<cr>
+imap <C-K> <c-o>:pyf ~/clang-format.py<cr>
 
