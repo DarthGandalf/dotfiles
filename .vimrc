@@ -1,15 +1,16 @@
 set nocompatible
 
-filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Bundle 'gmarik/Vundle.vim'
+"filetype off
+"set rtp+=~/.vim/bundle/Vundle.vim
+"call vundle#begin()
+"Bundle 'gmarik/Vundle.vim'
+call plug#begin()
 
 if filereadable(expand('~/.vimrc_at_google'))
 	source ~/.vimrc_at_google
 else
-	Bundle 'Valloric/YouCompleteMe'
-	Bundle 'davidhalter/jedi-vim'
+	Plug 'Valloric/YouCompleteMe'
+	"Plug 'davidhalter/jedi-vim'
 	set ts=4
 	set sw=4
 	set softtabstop=4 "4 пробела в табе
@@ -18,26 +19,30 @@ else
 
 	" YCM and jedi-vim both complete python; but YCM doesn't support python3.
 	" Also, they conflict. Disable YCM.
-	let g:ycm_filetype_specific_completion_to_disable = { 'python' : 1 }
-	let g:ycm_filetype_blacklist = { 'python' : 1 }
-	let g:jedi#force_py_version = 3
+	"let g:ycm_filetype_specific_completion_to_disable = { 'python' : 1 }
+	"let g:ycm_filetype_blacklist = { 'python' : 1 }
+	"let g:jedi#force_py_version = 3
 endif
 
-Bundle 'scrooloose/syntastic'
-Bundle 'vim-jp/cpp-vim'
-Bundle 'ConradIrwin/vim-bracketed-paste'
-Bundle 'vim-scripts/SWIG-syntax'
-Bundle 'stephpy/vim-yaml'
-Bundle 'scrooloose/nerdcommenter'
+Plug 'scrooloose/syntastic'
+Plug 'vim-jp/cpp-vim'
+Plug 'ConradIrwin/vim-bracketed-paste'
+Plug 'vim-scripts/SWIG-syntax'
+Plug 'stephpy/vim-yaml'
+Plug 'scrooloose/nerdcommenter'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'jiangmiao/auto-pairs'
+Plug 'alvan/vim-closetag'
 
 if &diff
 else
-  Bundle 'bogado/file-line'
+  Plug 'bogado/file-line'
 endif
 
-call vundle#end()
+call plug#end()
+"call vundle#end()
 
-filetype plugin indent on
+"filetype plugin indent on
 
 " If using a dark background within the editing area and syntax highlighting
 " turn on this option as well
@@ -124,7 +129,8 @@ set listchars=tab:▸\
 set hlsearch
 
 "write with sudo
-cmap w!! w !sudo tee > /dev/null %
+"cmap w!! w !sudo tee > /dev/null %
+command W w !sudo tee > /dev/null %
 
 syntax on
 
@@ -158,4 +164,3 @@ inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 map <C-K> :pyf ~/clang-format.py<cr>
 imap <C-K> <c-o>:pyf ~/clang-format.py<cr>
-
