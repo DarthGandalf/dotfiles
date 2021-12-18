@@ -1,4 +1,5 @@
 set nocompatible
+set directory=$HOME/.vim/swaps//
 
 call plug#begin()
 Plug 'ervandew/supertab'
@@ -31,11 +32,18 @@ Plug 'mhinz/vim-signify'
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
 Plug 'tpope/vim-sensible'
 Plug 'posva/vim-vue'
+Plug 'pearofducks/ansible-vim'
+Plug 'joshdick/onedark.vim'
+Plug 'tpope/vim-fugitive'
 Plug 'rust-lang/rust.vim'
+Plug 'luochen1990/rainbow'
+let g:rainbow_active = 1
+let g:vimspector_enable_mappings = 'HUMAN'
+Plug 'puremourning/vimspector'
 
 if &diff
 else
-  Plug 'bogado/file-line'
+"  Plug 'bogado/file-line'
 endif
 
 call plug#end()
@@ -75,6 +83,11 @@ set visualbell
 "Нужно во многих терминалах, например в gnome-terminal
 "set t_Co=256
 
+" these 3 lines should turn on 24bit+italics color
+let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
+set termguicolors
+
 set wrap
 set linebreak
 
@@ -99,7 +112,20 @@ set hlsearch
 "cmap w!! w !sudo tee > /dev/null %
 command W w !sudo tee > /dev/null %
 
-colorscheme elflord
+let g:onedark_terminal_italics = 1
+augroup colorset
+	autocmd!
+		let s:white = { "gui": "#ABB2BF", "cterm": "145", "cterm16" : "7" }
+	autocmd!
+		let s:yellow = { "gui": "#E5C07B", "cterm": "180", "cterm16": "3" }
+	autocmd ColorScheme * call onedark#set_highlight("TabLine", { "fg": s:white })
+	autocmd ColorScheme * call onedark#set_highlight("TabLineSel", { "fg": s:yellow, "cterm": "bold" })
+augroup END
+let g:onedark_color_overrides = {
+	\"black": {"gui": "#000000", "cterm": "235", "cterm16": "0" },
+	\"comment_grey": { "gui": "#2ac0c9", "cterm": "59", "cterm16": "15" },
+	\}
+colorscheme onedark
 
 "if &term =~ '^screen'
     " tmux will send xterm-style keys when its xterm-keys option is on
@@ -109,19 +135,21 @@ colorscheme elflord
 "    execute "set <xLeft>=\e[1;*D"
 "endif
 
-hi Search     ctermbg=141
-hi Todo       ctermbg=214
-hi DiffText   ctermbg=240
-hi DiffChange ctermbg=235
-hi DiffAdd    ctermbg=17
-hi DiffDelete ctermbg=0   ctermfg=88
+"hi Search     ctermbg=141
+"hi Todo       ctermbg=214
+"hi DiffText   ctermbg=240
+"hi DiffChange ctermbg=235
+"hi DiffAdd    ctermbg=17
+"hi DiffDelete ctermbg=0   ctermfg=88
 "Make code completion menu readable
-hi Pmenu      ctermbg=142
-hi PmenuSel   ctermbg=118 ctermfg=0
-hi PmenuSbar  ctermbg=248
-hi PmenuThumb ctermbg=160
+"hi Pmenu      ctermbg=142
+"hi PmenuSel   ctermbg=118 ctermfg=0
+"hi PmenuSbar  ctermbg=248
+"hi PmenuThumb ctermbg=160
 "C++ syntax error
-hi SpellBad ctermbg=52
+"hi SpellBad ctermbg=52
+"hi Comment cterm=italic
+"hi Todo cterm=italic
 
 let g:ycm_always_populate_location_list = 1
 
@@ -149,4 +177,10 @@ inoremap <F3> <C-O>:Autoformat<CR>
 nnoremap <C-K> :<C-u>ClangFormat<CR>
 vnoremap <C-K> :ClangFormat<CR>
 
-"let g:rustfmt_autosave = 1
+let g:rustfmt_autosave = 1
+let g:airline_powerline_fonts = 1
+
+" for normal mode - the word under the cursor
+nmap <Leader>di <Plug>VimspectorBalloonEval
+" for visual mode, the visually selected text
+xmap <Leader>di <Plug>VimspectorBalloonEval
