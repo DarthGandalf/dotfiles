@@ -25,7 +25,8 @@ Plug 'vim-scripts/SWIG-syntax'
 Plug 'stephpy/vim-yaml'
 Plug 'scrooloose/nerdcommenter'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'jiangmiao/auto-pairs'
+"Plug 'jiangmiao/auto-pairs'
+"Plug 'LunarWatcher/auto-pairs'
 Plug 'alvan/vim-closetag'
 Plug 'chrisbra/vim-diff-enhanced'
 Plug 'mhinz/vim-signify'
@@ -40,6 +41,10 @@ Plug 'luochen1990/rainbow'
 let g:rainbow_active = 1
 let g:vimspector_enable_mappings = 'HUMAN'
 Plug 'puremourning/vimspector'
+Plug 'JuliaEditorSupport/julia-vim'
+let g:latex_to_unicode_auto = 1
+Plug 'Raku/vim-raku'
+"let g:raku_unicode_abbrevs = 1
 
 if &diff
 else
