@@ -2,6 +2,7 @@
 	"suggest.noselect": true,
 	"coc.preferences.formatOnType": true,
 	"rust-analyzer.rustfmt.enableRangeFormatting": true,
+	"rust-analyzer.cargo.features": "all",
 	"languageserver": {
 		"clangd": {
 			"command": "clangd",
@@ -16,6 +17,13 @@
 				"c++",
 				"objc",
 				"objcpp"
+			]
+		},
+		"blueprint": {
+			"command": "blueprint-compiler",
+			"args": ["lsp"],
+			"filetypes": [
+				"blueprint",
 			]
 		}
 	}
