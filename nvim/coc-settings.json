@@ -3,6 +3,9 @@
 	"coc.preferences.formatOnType": true,
 	"rust-analyzer.rustfmt.enableRangeFormatting": true,
 	"rust-analyzer.cargo.features": "all",
+	"rust-analyzer.cargo.cfgs": [],
+	"semanticTokens.enable": true,
+	"semanticTokens.filetypes": ["c", "cpp"],
 	"languageserver": {
 		"clangd": {
 			"command": "clangd",
